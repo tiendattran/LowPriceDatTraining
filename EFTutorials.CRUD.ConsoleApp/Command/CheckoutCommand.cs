@@ -192,7 +192,7 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
                 {
                     total = total - totalDiscount;
                     Console.WriteLine($"Discount Programs: - {totalDiscount}");
-                    Console.WriteLine($"-------------------------");
+                    ConsoleHelper.DrawHorizontalLine('-', 50);
                 }
 
                 Console.WriteLine($"Final Total: {total}");

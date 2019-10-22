@@ -56,9 +56,11 @@
     <Compile Include="Action\CheckoutAction.cs" />
     <Compile Include="Action\PriceAction.cs" />
     <Compile Include="Action\ProductAction.cs" />
+    <Compile Include="Action\PromotionAction.cs" />
     <Compile Include="Command\CheckoutCommand.cs" />
     <Compile Include="Command\PriceCommand.cs" />
     <Compile Include="Command\ProductCommand.cs" />
+    <Compile Include="Command\PromotionCommand.cs" />
     <Compile Include="Common\CommonUtils.cs" />
     <Compile Include="Handler\CommandHandler.cs" />
     <Compile Include="Handler\ICommandHandler.cs" />

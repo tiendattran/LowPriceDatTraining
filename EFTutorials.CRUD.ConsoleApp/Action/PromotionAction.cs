@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EFTutorials.CRUD.ConsoleApp.Action
 {
-    public enum ProductAction
+    public enum PromotionAction
     {
-        InputProductCode,
-        InputProductType
+        ManagePromotion,
+        InputPromotionType
     }
 }

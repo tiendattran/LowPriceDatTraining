@@ -211,7 +211,7 @@ namespace EFTutorials.CRUD.ConsoleApp
                     {
                         do
                         {
-                            Console.Write("Product Type:");
+                            Console.Write("Promotion Type:");
                             isInt = int.TryParse(Console.ReadLine(), out productTypeInput);
                         } while (isInt == false || 
                                 (productTypeInput != (int)PromotionTypeEnum.Buy_X_Give_Y 
@@ -284,7 +284,8 @@ namespace EFTutorials.CRUD.ConsoleApp
                     RunPriceManagementProcess();
                     return true;
                 case "4":
-                    ManagePromotion();
+                    //ManagePromotion();
+                    RunPromotionManagementProcess();
                     return true;
                 default:
                     // EXIT                   
@@ -295,7 +296,7 @@ namespace EFTutorials.CRUD.ConsoleApp
         static void RunCheckoutProcess()
         {            
             CheckoutModel model = new CheckoutModel();
-            CommandHandler checkoutHandler = new CommandHandler();
+            ICommandHandler checkoutHandler = new CommandHandler();
             CheckoutCommand checkoutCmd = new CheckoutCommand(model, ConsoleApp.Action.CheckoutAction.AddOrderedItem);
             CommonUtils.ExecuteCommand(checkoutHandler, checkoutCmd);
             model = checkoutCmd.Checkout;
@@ -309,9 +310,17 @@ namespace EFTutorials.CRUD.ConsoleApp
         static void RunPriceManagementProcess()
         {
             NewPriceModel model = new NewPriceModel();
-            CommandHandler handler = new CommandHandler();
+            ICommandHandler handler = new CommandHandler();
             PriceCommand priceCmd = new PriceCommand(model, ConsoleApp.Action.PriceAction.AddNewPrice);
             CommonUtils.ExecuteCommand(handler, priceCmd);
+        }
+
+        static void RunPromotionManagementProcess()
+        {
+            PromotionModel model = new PromotionModel();
+            ICommandHandler handler = new CommandHandler();
+            PromotionCommand promotionCmd = new PromotionCommand(model, ConsoleApp.Action.PromotionAction.ManagePromotion);
+            CommonUtils.ExecuteCommand(handler, promotionCmd);
         }
     }
 }

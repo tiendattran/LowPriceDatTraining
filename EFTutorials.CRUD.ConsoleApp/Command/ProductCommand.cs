@@ -1,6 +1,7 @@
 ﻿using EFTutorials.CRUD.ConsoleApp.Action;
 using EFTutorials.CRUD.ConsoleApp.Common;
 using EFTutorials.CRUD.Service;
+using EFTutorials.CRUD.Service.Enum;
 using EFTutorials.CRUD.Service.Model;
 using System;
 using System.Collections.Generic;
@@ -29,7 +30,12 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
             {
                 InputProductCode();
             }          
+            else if (action == ProductAction.InputProductType)
+            {
+                
+            }
         }
+        
         private void InputProductCode()
         {
             string productCodeInput = "";
