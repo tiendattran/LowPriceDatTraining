@@ -138,7 +138,7 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
             {
                 ConsoleHelper.DrawHorizontalLine('=', 50);
                 double total = 0;
-                double discount = 0;
+                double membershipDiscount = 0;
                 double totalDiscount = 0;
                 List<GiftModel> gifts = new List<GiftModel>();
 
@@ -152,30 +152,35 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
                         Console.WriteLine($"------ Promotions -------");
                         foreach (var promotion in product.Promotions)
                         {
-                            if (promotion.PromotionTypeId == (int)PromotionTypeEnum.Buy_X_Give_Y && product.Quantity >= promotion.RequiredQuantity)
+                            if (promotion.OnlyMembership == false)
                             {
-                                int giftCount = promotion.DiscountQuantity ?? 0;
-                                gifts.Add(new GiftModel { ProductName = product.Name, GiftCount = giftCount });
-                                Console.WriteLine($"{promotion.Name} - Discount Quantity: {giftCount}");
-                            }
+                                if (promotion.PromotionTypeId == (int)PromotionTypeEnum.Buy_X_Give_Y && product.Quantity >= promotion.RequiredQuantity)
+                                {
+                                    int giftCount = promotion.DiscountQuantity ?? 0;
+                                    gifts.Add(new GiftModel { ProductName = product.Name, GiftCount = giftCount });
+                                    Console.WriteLine($"{promotion.Name} - Discount Quantity: {giftCount}");
+                                }
 
-                            if (promotion.PromotionTypeId == (int)PromotionTypeEnum.SaleOff_X_Percent)
-                            {
-                                double discountPercent = (productTotal * (promotion.Saleoff ?? 0)) / 100;
-                                totalDiscount = totalDiscount + discountPercent;
-                                Console.WriteLine($"{promotion.Name} - Discount ({promotion.Saleoff}): -{discountPercent}");
+                                if (promotion.PromotionTypeId == (int)PromotionTypeEnum.SaleOff_X_Percent)
+                                {
+                                    double discountPercent = (productTotal * (promotion.Saleoff ?? 0)) / 100;
+                                    totalDiscount = totalDiscount + discountPercent;
+                                    Console.WriteLine($"{promotion.Name} - Discount ({promotion.Saleoff}): -{discountPercent}");
+                                }
                             }
                         }
                     }
+                    ConsoleHelper.DrawHorizontalLine('-', 50);
                 }
-                ConsoleHelper.DrawHorizontalLine('-', 50);
+                Console.WriteLine("----------- SUMMARY -----------");
+                ConsoleHelper.DrawHorizontalLine('=', 50);
                 Console.WriteLine($"Total: {total}");
 
                 if (Checkout.IsMembership)
                 {
-                    discount = total * Checkout.MembershipDiscount / 100;
-                    total = total - discount;
-                    Console.WriteLine($"Discount Membership: -{discount}");
+                    membershipDiscount = total * Checkout.MembershipDiscount / 100;
+                    total = total - membershipDiscount;
+                    Console.WriteLine($"Discount Membership: -{membershipDiscount}");
                 }
 
                 if (gifts.Count > 0)
@@ -191,7 +196,7 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
                 if (totalDiscount > 0)
                 {
                     total = total - totalDiscount;
-                    Console.WriteLine($"Discount Programs: - {totalDiscount}");
+                    Console.WriteLine($"Discount Programs: -{totalDiscount}");
                     ConsoleHelper.DrawHorizontalLine('-', 50);
                 }
 

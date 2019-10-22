@@ -46,13 +46,14 @@ namespace EFTutorials.CRUD.Service
                                         .Select(pr => new PromotionModel { 
                                             Id = pr.ProductId,
                                             Name = pr.Promotion.Name,
-                                            IsActive = pr.IsActive,
+                                            IsActive = pr.Promotion.IsActive,
                                             PromotionTypeId = pr.Promotion.PromotionTypeId,
                                             StartDate = pr.Promotion.StartDate,
                                             EndDate = pr.Promotion.EndDate,
                                             Saleoff = pr.Promotion.Saleoff,
                                             RequiredQuantity = pr.Promotion.RequiredQuantity,
                                             DiscountQuantity = pr.Promotion.DiscountQuantity,
+                                            OnlyMembership = pr.Promotion.OnlyMembership
                                         })
                                         .Where(p => p.IsActive == true
                                             && p.StartDate <= DateTime.Now
