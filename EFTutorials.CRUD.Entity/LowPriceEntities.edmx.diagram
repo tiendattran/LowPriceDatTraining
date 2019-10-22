@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="1996b97aec8c4ebfb474cf41d5eda665" Name="Diagram1">
+        <EntityTypeShape EntityType="LowPriceDBModel.Category" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LowPriceDBModel.Measure" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="LowPriceDBModel.Product" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="LowPriceDBModel.ProductCategory" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="LowPriceDBModel.sysdiagram" Width="1.5" PointX="7.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="LowPriceDBModel.FK_ProductCategory_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="LowPriceDBModel.FK_Product_Measure" ManuallyRouted="false" />
+        <AssociationConnector Association="LowPriceDBModel.FK_ProductCategory_Product" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="LowPriceDBModel.Price" Width="1.5" PointX="5.25" PointY="4.5" />
+        <AssociationConnector Association="LowPriceDBModel.FK_Price_Product" />
+        <EntityTypeShape EntityType="LowPriceDBModel.ProductPromotion" Width="1.5" PointX="5.625" PointY="7.75" />
+        <EntityTypeShape EntityType="LowPriceDBModel.PromotionType" Width="1.5" PointX="0.75" PointY="8.625" />
+        <AssociationConnector Association="LowPriceDBModel.FK_ProductPromotion_Product" />
+        <EntityTypeShape EntityType="LowPriceDBModel.Promotion" Width="1.5" PointX="3" PointY="8" />
+        <AssociationConnector Association="LowPriceDBModel.FK_ProductPromotion_Promotion" />
+        <AssociationConnector Association="LowPriceDBModel.FK_Promotion_PromotionType" />
+        </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
