@@ -1,4 +1,5 @@
 ﻿using EFTutorials.CRUD.Repository;
+using EFTutorials.CRUD.Service.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,10 +34,30 @@ namespace EFTutorials.CRUD.Service
                 throw ex;
             }         
         }
+
+        public void AddNewPrice(NewPriceModel priceModel)
+        {
+            try
+            {
+                var newPrice = new Entity.Price
+                {
+                    ProductId = priceModel.ProductId,
+                    Value = priceModel.Price,
+                    ApplyDate = priceModel.ApplyDate,
+                    IsActive = priceModel.IsActive
+                };
+                priceRepository.Insert(newPrice);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 
     public interface IPriceService
     {
         void AddNewPrice(int productId, double price);
+        void AddNewPrice(NewPriceModel priceModel);
     }
 }

@@ -11,7 +11,7 @@ namespace EFTutorials.CRUD.ConsoleApp.Common
     public class CommonUtils
     {
         public static string EXIT_STRING = "E0";
-        public static void ExecuteCommand(IHandler handler, ICommand cmd)
+        public static void ExecuteCommand(ICommandHandler handler, ICommand cmd)
         {
             handler.SetCommand(cmd);
             handler.Invoke();

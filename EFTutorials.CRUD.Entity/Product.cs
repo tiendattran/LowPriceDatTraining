@@ -17,8 +17,8 @@ namespace EFTutorials.CRUD.Entity
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
         {
-            this.ProductCategories = new HashSet<ProductCategory>();
             this.Prices = new HashSet<Price>();
+            this.ProductCategories = new HashSet<ProductCategory>();
             this.ProductPromotions = new HashSet<ProductPromotion>();
         }
     
@@ -30,9 +30,9 @@ namespace EFTutorials.CRUD.Entity
     
         public virtual Measure Measure { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Price> Prices { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProductCategory> ProductCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProductPromotion> ProductPromotions { get; set; }
     }

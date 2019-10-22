@@ -26,3 +26,17 @@ C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Repository\bin\Debug\E
 C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Repository\bin\Debug\EntityFramework.xml
 C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Repository\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Repository\obj\Debug\EFTutorials.CRUD.Repository.csproj.CopyComplete
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EFTutorials.CRUD.Repository.dll.config
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EFTutorials.CRUD.Repository.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EFTutorials.CRUD.Repository.pdb
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EFTutorials.CRUD.Entity.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EntityFramework.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EFTutorials.CRUD.Entity.pdb
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EFTutorials.CRUD.Entity.dll.config
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EntityFramework.xml
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\obj\Debug\EFTutorials.CRUD.Repository.csprojAssemblyReference.cache
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\obj\Debug\EFTutorials.CRUD.Repository.csproj.CopyComplete
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\obj\Debug\EFTutorials.CRUD.Repository.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Repository\obj\Debug\EFTutorials.CRUD.Repository.pdb

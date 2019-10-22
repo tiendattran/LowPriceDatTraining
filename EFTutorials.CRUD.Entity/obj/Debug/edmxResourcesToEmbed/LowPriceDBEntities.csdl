@@ -1,0 +1,228 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="LowPriceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategory_Category" FromRole="Category" ToRole="ProductCategory" />
+  </EntityType>
+  <EntityType Name="Measure">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Self.FK_Product_Measure" FromRole="Measure" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Price">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="Value" Type="Double" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Price_Product" FromRole="Price" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Code" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="MeasureId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Measure" Relationship="Self.FK_Product_Measure" FromRole="Product" ToRole="Measure" />
+    <NavigationProperty Name="Prices" Relationship="Self.FK_Price_Product" FromRole="Product" ToRole="Price" />
+    <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategory_Product" FromRole="Product" ToRole="ProductCategory" />
+    <NavigationProperty Name="ProductPromotions" Relationship="Self.FK_ProductPromotion_Product" FromRole="Product" ToRole="ProductPromotion" />
+  </EntityType>
+  <EntityType Name="ProductCategory">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_ProductCategory_Category" FromRole="ProductCategory" ToRole="Category" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductCategory_Product" FromRole="ProductCategory" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="ProductPromotion">
+    <Key>
+      <PropertyRef Name="ProductId" />
+      <PropertyRef Name="PromotionId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="PromotionId" Type="Int32" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductPromotion_Product" FromRole="ProductPromotion" ToRole="Product" />
+    <NavigationProperty Name="Promotion" Relationship="Self.FK_ProductPromotion_Promotion" FromRole="ProductPromotion" ToRole="Promotion" />
+  </EntityType>
+  <EntityType Name="Promotion">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PromotionTypeId" Type="Int32" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="StartDate" Type="DateTime" Precision="3" />
+    <Property Name="EndDate" Type="DateTime" Precision="3" />
+    <Property Name="RequiredQuantity" Type="Int32" />
+    <Property Name="DiscountQuantity" Type="Int32" />
+    <Property Name="Saleoff" Type="Double" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="OnlyMembership" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ProductPromotions" Relationship="Self.FK_ProductPromotion_Promotion" FromRole="Promotion" ToRole="ProductPromotion" />
+    <NavigationProperty Name="PromotionType" Relationship="Self.FK_Promotion_PromotionType" FromRole="Promotion" ToRole="PromotionType" />
+  </EntityType>
+  <EntityType Name="PromotionType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Promotions" Relationship="Self.FK_Promotion_PromotionType" FromRole="PromotionType" ToRole="Promotion" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_ProductCategory_Category">
+    <End Role="Category" Type="Self.Category" Multiplicity="1" />
+    <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductCategory">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Product_Measure">
+    <End Role="Measure" Type="Self.Measure" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Measure">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="MeasureId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Price_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="Price" Type="Self.Price" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Price">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductCategory_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductCategory">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductPromotion_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="1" />
+    <End Role="ProductPromotion" Type="Self.ProductPromotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductPromotion">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductPromotion_Promotion">
+    <End Role="Promotion" Type="Self.Promotion" Multiplicity="1" />
+    <End Role="ProductPromotion" Type="Self.ProductPromotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Promotion">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductPromotion">
+        <PropertyRef Name="PromotionId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Promotion_PromotionType">
+    <End Role="PromotionType" Type="Self.PromotionType" Multiplicity="0..1" />
+    <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PromotionType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Promotion">
+        <PropertyRef Name="PromotionTypeId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="LowPriceDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="Measures" EntityType="Self.Measure" />
+    <EntitySet Name="Prices" EntityType="Self.Price" />
+    <EntitySet Name="Products" EntityType="Self.Product" />
+    <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+    <EntitySet Name="ProductPromotions" EntityType="Self.ProductPromotion" />
+    <EntitySet Name="Promotions" EntityType="Self.Promotion" />
+    <EntitySet Name="PromotionTypes" EntityType="Self.PromotionType" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <AssociationSet Name="FK_ProductCategory_Category" Association="Self.FK_ProductCategory_Category">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Product_Measure" Association="Self.FK_Product_Measure">
+      <End Role="Measure" EntitySet="Measures" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Price_Product" Association="Self.FK_Price_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="Price" EntitySet="Prices" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductCategory_Product" Association="Self.FK_ProductCategory_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductCategory" EntitySet="ProductCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductPromotion_Product" Association="Self.FK_ProductPromotion_Product">
+      <End Role="Product" EntitySet="Products" />
+      <End Role="ProductPromotion" EntitySet="ProductPromotions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductPromotion_Promotion" Association="Self.FK_ProductPromotion_Promotion">
+      <End Role="Promotion" EntitySet="Promotions" />
+      <End Role="ProductPromotion" EntitySet="ProductPromotions" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Promotion_PromotionType" Association="Self.FK_Promotion_PromotionType">
+      <End Role="PromotionType" EntitySet="PromotionTypes" />
+      <End Role="Promotion" EntitySet="Promotions" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

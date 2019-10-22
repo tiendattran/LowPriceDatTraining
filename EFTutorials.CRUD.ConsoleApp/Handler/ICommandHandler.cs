@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace EFTutorials.CRUD.ConsoleApp.Handler
 {
-    public interface IHandler
+    public interface ICommandHandler
     {
         void SetCommand(ICommand command);
-        void Invoke();
+        void Invoke();      
     }
 }

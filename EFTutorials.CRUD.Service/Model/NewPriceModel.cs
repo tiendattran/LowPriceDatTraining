@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace EFTutorials.CRUD.Service.Model
 {
-    public class PriceModel
+    public class NewPriceModel
     {
-        public int Id { get; set; }
         public int ProductId { get; set; }
-        public double Value { get; set; }
-        
+        public double Price { get; set; }
+        public DateTime ApplyDate { get; set; }
+        public bool IsActive { get; set; }
     }
 }

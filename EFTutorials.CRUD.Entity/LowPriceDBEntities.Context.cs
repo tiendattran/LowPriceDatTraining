@@ -27,12 +27,12 @@ namespace EFTutorials.CRUD.Entity
     
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Measure> Measures { get; set; }
+        public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductCategory> ProductCategories { get; set; }
-        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
-        public virtual DbSet<Price> Prices { get; set; }
         public virtual DbSet<ProductPromotion> ProductPromotions { get; set; }
-        public virtual DbSet<PromotionType> PromotionTypes { get; set; }
         public virtual DbSet<Promotion> Promotions { get; set; }
+        public virtual DbSet<PromotionType> PromotionTypes { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
     }
 }

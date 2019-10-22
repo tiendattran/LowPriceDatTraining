@@ -58,6 +58,7 @@
     <Compile Include="Model\CategoryModel.cs" />
     <Compile Include="Model\CheckoutProductModel.cs" />
     <Compile Include="Model\GiftModel.cs" />
+    <Compile Include="Model\NewPriceModel.cs" />
     <Compile Include="Model\PriceModel.cs" />
     <Compile Include="Model\ProductModel.cs" />
     <Compile Include="Model\PromotionModel.cs" />

@@ -20,3 +20,13 @@ C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Entity\obj\Debug\EFTut
 C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Entity\obj\Debug\EFTutorials.CRUD.Entity.csproj.CopyComplete
 C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Entity\obj\Debug\EFTutorials.CRUD.Entity.dll
 C:\Users\datr\source\dev\LowPriceProject\EFTutorials.CRUD.Entity\obj\Debug\EFTutorials.CRUD.Entity.pdb
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\bin\Debug\EFTutorials.CRUD.Entity.dll.config
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\bin\Debug\EFTutorials.CRUD.Entity.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\bin\Debug\EFTutorials.CRUD.Entity.pdb
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\bin\Debug\EntityFramework.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\bin\Debug\EntityFramework.xml
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\obj\Debug\EFTutorials.CRUD.Entity.csproj.CopyComplete
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\obj\Debug\EFTutorials.CRUD.Entity.dll
+C:\Users\datr\Documents\LowPriceDatTraining\EFTutorials.CRUD.Entity\obj\Debug\EFTutorials.CRUD.Entity.pdb

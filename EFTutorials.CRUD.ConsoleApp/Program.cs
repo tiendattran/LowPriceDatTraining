@@ -1,6 +1,7 @@
 ﻿using EFTutorials.CRUD.ConsoleApp.Command;
 using EFTutorials.CRUD.ConsoleApp.Common;
 using EFTutorials.CRUD.ConsoleApp.Handler;
+using EFTutorials.CRUD.ConsoleApp.Helper;
 using EFTutorials.CRUD.Service;
 using EFTutorials.CRUD.Service.Enum;
 using EFTutorials.CRUD.Service.Model;
@@ -28,7 +29,7 @@ namespace EFTutorials.CRUD.ConsoleApp
             string productCodeInput = "";
             double newPriceInput = -1;
             bool isDouble = false;
-            bool startCheckout = false;
+            bool isExist = false;
             IPriceService priceService = null;
             IProductService productService = null;
             try
@@ -38,22 +39,22 @@ namespace EFTutorials.CRUD.ConsoleApp
                 Console.Clear();
                 Console.WriteLine("-- Price Management --");
                 Console.WriteLine("==============================================");
-                while (startCheckout == false)
+                while (isExist == false)
                 {
                     ProductModel selectedProduct = null;
                     do
                     {
                         Console.Write("Product Code: ");
                         productCodeInput = Console.ReadLine();
-                        startCheckout = productCodeInput.ToUpper().Equals("E0");
-                        if (startCheckout == false)
+                        isExist = productCodeInput.ToUpper().Equals("E0");
+                        if (isExist == false)
                         {
                             selectedProduct = productService.GetProductInfoByCode(productCodeInput);
                         }
                     }
-                    while (startCheckout == false && selectedProduct == null);
+                    while (isExist == false && selectedProduct == null);
 
-                    if (startCheckout == false)
+                    if (isExist == false)
                     {
                         Console.WriteLine($"Current Price: {selectedProduct.Price}/{selectedProduct.Measure}");
                         do
@@ -64,9 +65,9 @@ namespace EFTutorials.CRUD.ConsoleApp
                         while (isDouble == false && newPriceInput < 0);
                         priceService.AddNewPrice(selectedProduct.Id, newPriceInput);
                     }
-                    Console.WriteLine("----------------------------------------------");
+                    ConsoleHelper.DrawHorizontalLine('-', 50);
                 }
-                Console.WriteLine("==============================================");
+                ConsoleHelper.DrawHorizontalLine('=', 50);
             }
             catch (Exception ex)
             {
@@ -83,7 +84,7 @@ namespace EFTutorials.CRUD.ConsoleApp
             string productCodeInput = "";
             float quantityInput = -1;
             bool isFloat = false;
-            bool startCheckout = false;
+            bool isExist = false;
             bool isMembership = false;
             double discountPercent = 10;
             string membershipInput;
@@ -97,7 +98,7 @@ namespace EFTutorials.CRUD.ConsoleApp
                 promotionService = new PromotionService();
                 Console.Clear();
                 Console.WriteLine("-- Checkout --");
-                while (startCheckout == false)
+                while (isExist == false)
                 {
                     ProductModel selectedProduct = null;
 
@@ -105,15 +106,15 @@ namespace EFTutorials.CRUD.ConsoleApp
                     {
                         Console.Write("Product Code: ");
                         productCodeInput = Console.ReadLine();
-                        startCheckout = productCodeInput.ToUpper().Equals("E0");
-                        if (startCheckout == false)
+                        isExist = productCodeInput.ToUpper().Equals("E0");
+                        if (isExist == false)
                         {
                             selectedProduct = productService.GetProductInfoByCode(productCodeInput);
                         }
                     }
-                    while (startCheckout == false && selectedProduct == null);
+                    while (isExist == false && selectedProduct == null);
 
-                    if (startCheckout == false)
+                    if (isExist == false)
                     {
                         do
                         {
@@ -181,7 +182,7 @@ namespace EFTutorials.CRUD.ConsoleApp
             int discountQuantity = 0;
             int discountPercent = 0;
             bool isInt = false;
-            bool startCheckout = false;
+            bool isExist = false;
             PromotionModel promotion = new PromotionModel();
             IProductService productService = null;
             IPromotionService promotionService = null; 
@@ -191,22 +192,22 @@ namespace EFTutorials.CRUD.ConsoleApp
                 promotionService = new PromotionService();
                 Console.Clear();
                 Console.WriteLine("-- Promotion Management --");
-                while (startCheckout == false)
+                while (isExist == false)
                 {
                     ProductModel selectedProduct = null;
                     do
                     {
                         Console.Write("Product Code: ");
                         productCodeInput = Console.ReadLine();
-                        startCheckout = productCodeInput.ToUpper().Equals("E0");
-                        if (startCheckout == false)
+                        isExist = productCodeInput.ToUpper().Equals("E0");
+                        if (isExist == false)
                         {
                             selectedProduct = productService.GetProductInfoByCode(productCodeInput);
                         }
                     }
-                    while (startCheckout == false && selectedProduct == null);
+                    while (isExist == false && selectedProduct == null);
                     
-                    if (startCheckout == false)
+                    if (isExist == false)
                     {
                         do
                         {
@@ -279,7 +280,8 @@ namespace EFTutorials.CRUD.ConsoleApp
                     RunCheckoutProcess();
                     return true;
                 case "3":
-                    ManagePrice();
+                    //ManagePrice();
+                    RunPriceManagementProcess();
                     return true;
                 case "4":
                     ManagePromotion();
@@ -293,7 +295,7 @@ namespace EFTutorials.CRUD.ConsoleApp
         static void RunCheckoutProcess()
         {            
             CheckoutModel model = new CheckoutModel();
-            CheckoutHandler checkoutHandler = new CheckoutHandler();
+            CommandHandler checkoutHandler = new CommandHandler();
             CheckoutCommand checkoutCmd = new CheckoutCommand(model, ConsoleApp.Action.CheckoutAction.AddOrderedItem);
             CommonUtils.ExecuteCommand(checkoutHandler, checkoutCmd);
             model = checkoutCmd.Checkout;
@@ -303,5 +305,13 @@ namespace EFTutorials.CRUD.ConsoleApp
             checkoutCmd = new CheckoutCommand(model, ConsoleApp.Action.CheckoutAction.ShowCheckoutResult);
             CommonUtils.ExecuteCommand(checkoutHandler, checkoutCmd);
         }        
+
+        static void RunPriceManagementProcess()
+        {
+            NewPriceModel model = new NewPriceModel();
+            CommandHandler handler = new CommandHandler();
+            PriceCommand priceCmd = new PriceCommand(model, ConsoleApp.Action.PriceAction.AddNewPrice);
+            CommonUtils.ExecuteCommand(handler, priceCmd);
+        }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="LowPriceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="LowPriceDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Category">
           <Key>
             <PropertyRef Name="Id" />
@@ -216,7 +216,8 @@
             <End Role="Promotion" EntitySet="Promotion" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="LowPriceDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -238,6 +239,17 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Products" Relationship="Self.FK_Product_Measure" FromRole="Measure" ToRole="Product" />
         </EntityType>
+        <EntityType Name="Price">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="Value" Type="Double" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Price_Product" FromRole="Price" ToRole="Product" />
+        </EntityType>
         <EntityType Name="Product">
           <Key>
             <PropertyRef Name="Id" />
@@ -248,9 +260,9 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <Property Name="MeasureId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Measure" Relationship="Self.FK_Product_Measure" FromRole="Product" ToRole="Measure" />
+          <NavigationProperty Name="Prices" Relationship="Self.FK_Price_Product" FromRole="Product" ToRole="Price" />
           <NavigationProperty Name="ProductCategories" Relationship="Self.FK_ProductCategory_Product" FromRole="Product" ToRole="ProductCategory" />
-          <NavigationProperty Name="Prices" Relationship="LowPriceDBModel.FK_Price_Product" FromRole="Product" ToRole="Price" />
-          <NavigationProperty Name="ProductPromotions" Relationship="LowPriceDBModel.FK_ProductPromotion_Product" FromRole="Product" ToRole="ProductPromotion" />
+          <NavigationProperty Name="ProductPromotions" Relationship="Self.FK_ProductPromotion_Product" FromRole="Product" ToRole="ProductPromotion" />
         </EntityType>
         <EntityType Name="ProductCategory">
           <Key>
@@ -262,6 +274,44 @@
           <Property Name="IsActive" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Category" Relationship="Self.FK_ProductCategory_Category" FromRole="ProductCategory" ToRole="Category" />
           <NavigationProperty Name="Product" Relationship="Self.FK_ProductCategory_Product" FromRole="ProductCategory" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="ProductPromotion">
+          <Key>
+            <PropertyRef Name="ProductId" />
+            <PropertyRef Name="PromotionId" />
+          </Key>
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="PromotionId" Type="Int32" Nullable="false" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductPromotion_Product" FromRole="ProductPromotion" ToRole="Product" />
+          <NavigationProperty Name="Promotion" Relationship="Self.FK_ProductPromotion_Promotion" FromRole="ProductPromotion" ToRole="Promotion" />
+        </EntityType>
+        <EntityType Name="Promotion">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PromotionTypeId" Type="Int32" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="StartDate" Type="DateTime" Precision="3" />
+          <Property Name="EndDate" Type="DateTime" Precision="3" />
+          <Property Name="RequiredQuantity" Type="Int32" />
+          <Property Name="DiscountQuantity" Type="Int32" />
+          <Property Name="Saleoff" Type="Double" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="OnlyMembership" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="ProductPromotions" Relationship="Self.FK_ProductPromotion_Promotion" FromRole="Promotion" ToRole="ProductPromotion" />
+          <NavigationProperty Name="PromotionType" Relationship="Self.FK_Promotion_PromotionType" FromRole="Promotion" ToRole="PromotionType" />
+        </EntityType>
+        <EntityType Name="PromotionType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Promotions" Relationship="Self.FK_Promotion_PromotionType" FromRole="PromotionType" ToRole="Promotion" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -297,6 +347,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Price_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="Price" Type="Self.Price" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Price">
+              <PropertyRef Name="ProductId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProductCategory_Product">
           <End Role="Product" Type="Self.Product" Multiplicity="1" />
           <End Role="ProductCategory" Type="Self.ProductCategory" Multiplicity="*" />
@@ -309,92 +371,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="LowPriceDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Categories" EntityType="Self.Category" />
-          <EntitySet Name="Measures" EntityType="Self.Measure" />
-          <EntitySet Name="Products" EntityType="Self.Product" />
-          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
-          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
-          <AssociationSet Name="FK_ProductCategory_Category" Association="Self.FK_ProductCategory_Category">
-            <End Role="Category" EntitySet="Categories" />
-            <End Role="ProductCategory" EntitySet="ProductCategories" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Product_Measure" Association="Self.FK_Product_Measure">
-            <End Role="Measure" EntitySet="Measures" />
-            <End Role="Product" EntitySet="Products" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProductCategory_Product" Association="Self.FK_ProductCategory_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductCategory" EntitySet="ProductCategories" />
-          </AssociationSet>
-          <EntitySet Name="Prices" EntityType="LowPriceDBModel.Price" />
-          <AssociationSet Name="FK_Price_Product" Association="LowPriceDBModel.FK_Price_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="Price" EntitySet="Prices" />
-          </AssociationSet>
-          <EntitySet Name="ProductPromotions" EntityType="LowPriceDBModel.ProductPromotion" />
-          <EntitySet Name="PromotionTypes" EntityType="LowPriceDBModel.PromotionType" />
-          <AssociationSet Name="FK_ProductPromotion_Product" Association="LowPriceDBModel.FK_ProductPromotion_Product">
-            <End Role="Product" EntitySet="Products" />
-            <End Role="ProductPromotion" EntitySet="ProductPromotions" />
-          </AssociationSet>
-          <EntitySet Name="Promotions" EntityType="LowPriceDBModel.Promotion" />
-          <AssociationSet Name="FK_ProductPromotion_Promotion" Association="LowPriceDBModel.FK_ProductPromotion_Promotion">
-            <End Role="Promotion" EntitySet="Promotions" />
-            <End Role="ProductPromotion" EntitySet="ProductPromotions" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Promotion_PromotionType" Association="LowPriceDBModel.FK_Promotion_PromotionType">
-            <End Role="PromotionType" EntitySet="PromotionTypes" />
-            <End Role="Promotion" EntitySet="Promotions" />
-          </AssociationSet>
-          </EntityContainer>
-        <EntityType Name="Price">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="ApplyDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="Value" Type="Double" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="LowPriceDBModel.FK_Price_Product" FromRole="Price" ToRole="Product" />
-        </EntityType>
-        <Association Name="FK_Price_Product">
-          <End Type="LowPriceDBModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="LowPriceDBModel.Price" Role="Price" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Product">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Price">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="ProductPromotion">
-          <Key>
-            <PropertyRef Name="ProductId" />
-            <PropertyRef Name="PromotionId" />
-          </Key>
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="PromotionId" Type="Int32" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Product" Relationship="LowPriceDBModel.FK_ProductPromotion_Product" FromRole="ProductPromotion" ToRole="Product" />
-          <NavigationProperty Name="Promotion" Relationship="LowPriceDBModel.FK_ProductPromotion_Promotion" FromRole="ProductPromotion" ToRole="Promotion" />
-        </EntityType>
-        <EntityType Name="PromotionType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Promotions" Relationship="LowPriceDBModel.FK_Promotion_PromotionType" FromRole="PromotionType" ToRole="Promotion" />
-        </EntityType>
         <Association Name="FK_ProductPromotion_Product">
-          <End Type="LowPriceDBModel.Product" Role="Product" Multiplicity="1" />
-          <End Type="LowPriceDBModel.ProductPromotion" Role="ProductPromotion" Multiplicity="*" />
+          <End Role="Product" Type="Self.Product" Multiplicity="1" />
+          <End Role="ProductPromotion" Type="Self.ProductPromotion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Product">
               <PropertyRef Name="Id" />
@@ -404,26 +383,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Promotion">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="PromotionTypeId" Type="Int32" />
-          <Property Name="Name" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="StartDate" Type="DateTime" Precision="3" />
-          <Property Name="EndDate" Type="DateTime" Precision="3" />
-          <Property Name="RequiredQuantity" Type="Int32" />
-          <Property Name="DiscountQuantity" Type="Int32" />
-          <Property Name="Saleoff" Type="Double" />
-          <Property Name="IsActive" Type="Boolean" Nullable="false" />
-          <Property Name="OnlyMembership" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="ProductPromotions" Relationship="LowPriceDBModel.FK_ProductPromotion_Promotion" FromRole="Promotion" ToRole="ProductPromotion" />
-          <NavigationProperty Name="PromotionType" Relationship="LowPriceDBModel.FK_Promotion_PromotionType" FromRole="Promotion" ToRole="PromotionType" />
-        </EntityType>
         <Association Name="FK_ProductPromotion_Promotion">
-          <End Type="LowPriceDBModel.Promotion" Role="Promotion" Multiplicity="1" />
-          <End Type="LowPriceDBModel.ProductPromotion" Role="ProductPromotion" Multiplicity="*" />
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="1" />
+          <End Role="ProductPromotion" Type="Self.ProductPromotion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Promotion">
               <PropertyRef Name="Id" />
@@ -434,8 +396,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Promotion_PromotionType">
-          <End Type="LowPriceDBModel.PromotionType" Role="PromotionType" Multiplicity="0..1" />
-          <End Type="LowPriceDBModel.Promotion" Role="Promotion" Multiplicity="*" />
+          <End Role="PromotionType" Type="Self.PromotionType" Multiplicity="0..1" />
+          <End Role="Promotion" Type="Self.Promotion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PromotionType">
               <PropertyRef Name="Id" />
@@ -445,7 +407,46 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+        <EntityContainer Name="LowPriceDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categories" EntityType="Self.Category" />
+          <EntitySet Name="Measures" EntityType="Self.Measure" />
+          <EntitySet Name="Prices" EntityType="Self.Price" />
+          <EntitySet Name="Products" EntityType="Self.Product" />
+          <EntitySet Name="ProductCategories" EntityType="Self.ProductCategory" />
+          <EntitySet Name="ProductPromotions" EntityType="Self.ProductPromotion" />
+          <EntitySet Name="Promotions" EntityType="Self.Promotion" />
+          <EntitySet Name="PromotionTypes" EntityType="Self.PromotionType" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+          <AssociationSet Name="FK_ProductCategory_Category" Association="Self.FK_ProductCategory_Category">
+            <End Role="Category" EntitySet="Categories" />
+            <End Role="ProductCategory" EntitySet="ProductCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Product_Measure" Association="Self.FK_Product_Measure">
+            <End Role="Measure" EntitySet="Measures" />
+            <End Role="Product" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Price_Product" Association="Self.FK_Price_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Price" EntitySet="Prices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductCategory_Product" Association="Self.FK_ProductCategory_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductCategory" EntitySet="ProductCategories" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPromotion_Product" Association="Self.FK_ProductPromotion_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ProductPromotion" EntitySet="ProductPromotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductPromotion_Promotion" Association="Self.FK_ProductPromotion_Promotion">
+            <End Role="Promotion" EntitySet="Promotions" />
+            <End Role="ProductPromotion" EntitySet="ProductPromotions" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Promotion_PromotionType" Association="Self.FK_Promotion_PromotionType">
+            <End Role="PromotionType" EntitySet="PromotionTypes" />
+            <End Role="Promotion" EntitySet="Promotions" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -469,6 +470,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Prices">
+            <EntityTypeMapping TypeName="LowPriceDBModel.Price">
+              <MappingFragment StoreEntitySet="Price">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="LowPriceDBModel.Product">
               <MappingFragment StoreEntitySet="Product">
@@ -489,6 +501,41 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProductPromotions">
+            <EntityTypeMapping TypeName="LowPriceDBModel.ProductPromotion">
+              <MappingFragment StoreEntitySet="ProductPromotion">
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Promotions">
+            <EntityTypeMapping TypeName="LowPriceDBModel.Promotion">
+              <MappingFragment StoreEntitySet="Promotion">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="PromotionTypeId" ColumnName="PromotionTypeId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="RequiredQuantity" ColumnName="RequiredQuantity" />
+                <ScalarProperty Name="DiscountQuantity" ColumnName="DiscountQuantity" />
+                <ScalarProperty Name="Saleoff" ColumnName="Saleoff" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+                <ScalarProperty Name="OnlyMembership" ColumnName="OnlyMembership" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PromotionTypes">
+            <EntityTypeMapping TypeName="LowPriceDBModel.PromotionType">
+              <MappingFragment StoreEntitySet="PromotionType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="LowPriceDBModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
@@ -497,52 +544,6 @@
                 <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
                 <ScalarProperty Name="version" ColumnName="version" />
                 <ScalarProperty Name="definition" ColumnName="definition" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Prices">
-            <EntityTypeMapping TypeName="LowPriceDBModel.Price">
-              <MappingFragment StoreEntitySet="Price">
-                <ScalarProperty Name="Value" ColumnName="Value" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="ApplyDate" ColumnName="ApplyDate" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductPromotions">
-            <EntityTypeMapping TypeName="LowPriceDBModel.ProductPromotion">
-              <MappingFragment StoreEntitySet="ProductPromotion">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="PromotionId" ColumnName="PromotionId" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PromotionTypes">
-            <EntityTypeMapping TypeName="LowPriceDBModel.PromotionType">
-              <MappingFragment StoreEntitySet="PromotionType">
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Promotions">
-            <EntityTypeMapping TypeName="LowPriceDBModel.Promotion">
-              <MappingFragment StoreEntitySet="Promotion">
-                <ScalarProperty Name="OnlyMembership" ColumnName="OnlyMembership" />
-                <ScalarProperty Name="IsActive" ColumnName="IsActive" />
-                <ScalarProperty Name="Saleoff" ColumnName="Saleoff" />
-                <ScalarProperty Name="DiscountQuantity" ColumnName="DiscountQuantity" />
-                <ScalarProperty Name="RequiredQuantity" ColumnName="RequiredQuantity" />
-                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
-                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
-                <ScalarProperty Name="PromotionTypeId" ColumnName="PromotionTypeId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

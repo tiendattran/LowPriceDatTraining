@@ -54,12 +54,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Action\CheckoutAction.cs" />
+    <Compile Include="Action\PriceAction.cs" />
     <Compile Include="Action\ProductAction.cs" />
     <Compile Include="Command\CheckoutCommand.cs" />
+    <Compile Include="Command\PriceCommand.cs" />
     <Compile Include="Command\ProductCommand.cs" />
     <Compile Include="Common\CommonUtils.cs" />
-    <Compile Include="Handler\CheckoutHandler.cs" />
-    <Compile Include="Handler\IHandler.cs" />
+    <Compile Include="Handler\CommandHandler.cs" />
+    <Compile Include="Handler\ICommandHandler.cs" />
     <Compile Include="Helper\ConsoleHelper.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

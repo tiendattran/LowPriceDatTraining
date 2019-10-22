@@ -13,5 +13,13 @@ namespace EFTutorials.CRUD.ConsoleApp.Helper
             Console.Clear();
             Console.WriteLine("------- " + title + "-------");
         }
+        public static void DrawHorizontalLine(char character, int length)
+        {
+            for (int i = 0; i < length; i++)
+            {
+                Console.Write(character);
+            }
+            Console.WriteLine();
+        }
     }
 }

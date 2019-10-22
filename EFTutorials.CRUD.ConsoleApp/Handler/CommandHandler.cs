@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace EFTutorials.CRUD.ConsoleApp.Handler
 {
-    public class CheckoutHandler : IHandler
+    public class CommandHandler : ICommandHandler
     {
         private readonly List<ICommand> commands;
         private ICommand command;
-        public CheckoutHandler()
+        public CommandHandler()
         {
             this.commands = new List<ICommand>();
         }      
@@ -21,6 +21,6 @@ namespace EFTutorials.CRUD.ConsoleApp.Handler
         {
             commands.Add(command);
             command.ExecuteAction();
-        }
+        }      
     }
 }

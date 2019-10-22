@@ -51,74 +51,74 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Category.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="LowPriceEntities.Context.cs">
+    <Compile Include="LowPriceDBEntities.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LowPriceEntities.Context.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="LowPriceEntities.cs">
+    <Compile Include="LowPriceDBEntities.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="LowPriceEntities.Designer.cs">
+    <Compile Include="LowPriceDBEntities.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>LowPriceEntities.edmx</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Measure.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Price.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Product.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductCategory.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="ProductPromotion.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Promotion.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="PromotionType.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="sysdiagram.cs">
-      <DependentUpon>LowPriceEntities.tt</DependentUpon>
+      <DependentUpon>LowPriceDBEntities.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <EntityDeploy Include="LowPriceEntities.edmx">
+    <EntityDeploy Include="LowPriceDBEntities.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>LowPriceEntities.Designer.cs</LastGenOutput>
+      <LastGenOutput>LowPriceDBEntities.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="LowPriceEntities.edmx.diagram">
-      <DependentUpon>LowPriceEntities.edmx</DependentUpon>
+    <None Include="LowPriceDBEntities.edmx.diagram">
+      <DependentUpon>LowPriceDBEntities.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LowPriceEntities.Context.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LowPriceEntities.edmx</DependentUpon>
-      <LastGenOutput>LowPriceEntities.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="LowPriceEntities.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>LowPriceEntities.edmx</DependentUpon>
-      <LastGenOutput>LowPriceEntities.cs</LastGenOutput>
-    </Content>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <Content Include="LowPriceDBEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LowPriceDBEntities.edmx</DependentUpon>
+      <LastGenOutput>LowPriceDBEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="LowPriceDBEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>LowPriceDBEntities.edmx</DependentUpon>
+      <LastGenOutput>LowPriceDBEntities.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

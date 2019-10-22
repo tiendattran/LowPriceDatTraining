@@ -46,12 +46,12 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
         private void AddOrderItem()
         {
             float quantityInput;
-            bool startCheckout = false;
+            bool isExist = false;
             Checkout.Products = new List<CheckoutProductModel>();
             try
             {
                 ConsoleHelper.CleanTheConsole(this.Description);
-                while (startCheckout == false)
+                while (isExist == false)
                 {
                     ProductModel selectedProduct = null;
                     var inputProductCodeCommand = new ProductCommand(selectedProduct, ProductAction.InputProductCode);
@@ -59,9 +59,9 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
                     selectedProduct = inputProductCodeCommand.Product;
                     if (selectedProduct != null)
                     {
-                        startCheckout = selectedProduct.Code.Equals(CommonUtils.EXIT_STRING);
+                        isExist = selectedProduct.Code.Equals(CommonUtils.EXIT_STRING);
                     }
-                    if (startCheckout == false)
+                    if (isExist == false)
                     {
                         quantityInput = this.InputQuantity();
                         AddQuantityToCheckoutProductModel(selectedProduct, quantityInput);
@@ -136,7 +136,7 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
         {
             try
             {
-                Console.WriteLine("=====================================");
+                ConsoleHelper.DrawHorizontalLine('=', 50);
                 double total = 0;
                 double discount = 0;
                 double totalDiscount = 0;
@@ -168,7 +168,7 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
                         }
                     }
                 }
-                Console.WriteLine("-------------------------------------");
+                ConsoleHelper.DrawHorizontalLine('-', 50);
                 Console.WriteLine($"Total: {total}");
 
                 if (Checkout.IsMembership)
@@ -185,7 +185,7 @@ namespace EFTutorials.CRUD.ConsoleApp.Command
                     {
                         Console.WriteLine($"{gift.ProductName}: {gift.GiftCount}");
                     }
-                    Console.WriteLine($"-------------------------");
+                    ConsoleHelper.DrawHorizontalLine('-', 50);
                 }
 
                 if (totalDiscount > 0)
